@@ -7,9 +7,9 @@ import tourvd5 from "/vd5.mp4";
 
 const Tour = () => {
   return (
-    <div className="px-4 lg:px-10 grid gap-8">
+    <div className="px-4 lg:px-10 grid gap-4 mt-4">
       {/* Header Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 items-center gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 items-center gap-4">
         <div className="lg:col-span-3">
           <span className="text-5xl md:text-7xl lg:text-[170px] font-extrabold text-black">
             ADVENTURE
@@ -27,7 +27,7 @@ const Tour = () => {
       </div>
 
       {/* Journey Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
         <div className="lg:col-span-2">
           <h1 className="text-gray-700 text-xl md:text-2xl">
             BEGIN YOUR JOURNEY
@@ -59,7 +59,7 @@ const Tour = () => {
       </div>
 
       {/* Stories Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
         <div>
           <h1 className="text-lg md:text-xl font-semibold">
             Exploring Together:
