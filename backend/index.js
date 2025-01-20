@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import dbConnect from './config/dbconnection.js';
 dotenv.config();
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
     })
 })
 
-app.listen(8000, () => {
-    console.log('Server is running on port 8000')
+app.listen(8080, () => {
+    console.log('Server is running on port 8080')
+    dbConnect();
 })
