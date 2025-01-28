@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import dbConnect from './config/dbconnection.js';
+import cloudinaryConnect from './config/cloudinary.js';
 // import sendMail from './mail/sendemail.js';
 dotenv.config();
 const app = express();
@@ -15,6 +16,11 @@ app.use(cookieParser());
 app.use(cors({
 
 }))
+
+
+
+// CLOUDINARY CONNECTION
+cloudinaryConnect();
 
 app.get('/', (req, res) => {
     res.json({
