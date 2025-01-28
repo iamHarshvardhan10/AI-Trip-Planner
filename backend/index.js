@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import dbConnect from './config/dbconnection.js';
 import cloudinaryConnect from './config/cloudinary.js';
+import fileUpload from 'express-fileupload';
 // import sendMail from './mail/sendemail.js';
 dotenv.config();
 const app = express();
@@ -15,6 +16,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
 
+}))
+
+// EXPRESS - FILE UPLOAD
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
 }))
 
 
