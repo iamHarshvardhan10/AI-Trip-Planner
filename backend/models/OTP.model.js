@@ -1,4 +1,6 @@
+import sendMail from "../mail/sendemail";
 import mongoose from "mongoose";
+import otpTemplate from "../mail/templates/emailVerificationTemplates";
 
 
 const OTPSchema = new mongoose.Schema({
@@ -20,9 +22,24 @@ const OTPSchema = new mongoose.Schema({
 
 // Sending OTP Via Email
 
+const sendVerificationEmail = async (email, otp) => {
+    try {
+        const emailResponse = await sendMail(email, 'Verification Email', otpTemplate(otp))
+        console.log(emailResponse.response)
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 // Pre Hook Middleware Before signin OTP will store in database
 
-
+OTPSchema.pre("save", async function (next) {
+    console.log('New Document saved');
+    if (this.isNew) {
+        await sendVerificationEmail(this.email, this.otp)
+        next();
+    }
+})
 
 const OTP = mongoose.model('OTP', OTPSchema);
 
