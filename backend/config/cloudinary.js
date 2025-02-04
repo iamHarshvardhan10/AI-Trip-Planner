@@ -9,7 +9,7 @@ const cloudinaryConnect = () => {
             api_secret: process.env.CLOUD_API_SECRET
         })
 
-        // console.log('cloudinary setup confirm')
+        console.log('cloudinary setup confirm')
     } catch (error) {
         console.log(error.message)
     }
