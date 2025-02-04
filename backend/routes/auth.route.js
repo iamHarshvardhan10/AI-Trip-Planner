@@ -1,4 +1,4 @@
-import { register, sentOtp } from '../controllers/auth.controllers.js';
+import { login, register, sentOtp } from '../controllers/auth.controllers.js';
 import express from 'express';
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/register', register)
 
 // Route for login
-
+router.post('/login', login)
 // Route for SEND OTP
 
 router.post('/sendOTP', sentOtp)

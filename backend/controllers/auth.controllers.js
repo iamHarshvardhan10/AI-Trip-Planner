@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import uploadImageToCloudinary from "../utils/uploadImageToCloudnary.js";
 import OTP from "../models/OTP.model.js";
 import User from "../models/user.model.js";
 import otpGenerator from 'otp-generator';
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export const sentOtp = async (req, res) => {
     try {
@@ -128,6 +130,60 @@ export const register = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+
+// Login controllers
+export const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // check field 
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all fields",
+            })
+        }
+
+        // find user
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "User is not Registered with Us Please Register to Continue",
+            })
+        }
+
+        if (await bcrypt.compare(password, user.password)) {
+            const token = jwt.sign({ email: user.email, id: user._id }, process.env.JWT_KEY, { expiresIn: '24h' })
+
+            user.password = undefined;
+
+            const options = {
+                expires: new Date(Date.now() + 24 * 60 * 60 * 100),
+                httpOnly: true,
+                secure: true
+            }
+            res.cookie("token", token, options).status(200).json({
+                success: true,
+                message: "User logged in Successfully",
+                token,
+                user
+            })
+
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Password",
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
             success: false,
             message: error.message,
         })
