@@ -19,7 +19,7 @@ const sendMail = async (email, title, body) => {
             from: `${process.env.EMAIL_USER}`,
             to: `${email}`,
             subject: `${title}`,
-            text: `${body}`
+            html: `${body}`
         })
         console.log('message sent', info)
     } catch (error) {

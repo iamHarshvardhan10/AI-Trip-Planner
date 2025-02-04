@@ -1,6 +1,6 @@
-import sendMail from "../mail/sendemail";
+import sendMail from "../mail/sendemail.js";
 import mongoose from "mongoose";
-import otpTemplate from "../mail/templates/emailVerificationTemplates";
+import otpTemplate from "../mail/templates/emailVerificationTemplates.js";
 
 
 const OTPSchema = new mongoose.Schema({
