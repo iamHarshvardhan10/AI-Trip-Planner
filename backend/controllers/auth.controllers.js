@@ -5,6 +5,8 @@ import User from "../models/user.model.js";
 import otpGenerator from 'otp-generator';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import sendMail from "../mail/sendemail.js";
+import { passwordUpdated } from "../mail/templates/passwordUpdates.js";
 
 export const sentOtp = async (req, res) => {
     try {
@@ -167,7 +169,7 @@ export const login = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 24 * 60 * 60 * 100),
                 httpOnly: true,
-                secure: true
+                secure: false
             }
             res.cookie("token", token, options).status(200).json({
                 success: true,
@@ -191,3 +193,57 @@ export const login = async (req, res) => {
 }
 
 
+// change password
+
+export const changePassword = async (req, res) => {
+    try {
+        console.log('check 1')
+        const userId = req.user.id;
+        console.log(userId)
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User is not logged in",
+            })
+        }
+
+        console.log('check 2')
+        // const userDetails = await User.findById(userId);
+
+        const { newPassword, confirmPassword } = req.body;
+        console.log('check 3')
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "Passwords do not match",
+            })
+        }
+
+        const hashPassword = await bcrypt.hash(newPassword, 10);
+        console.log('check 4')
+        const updateUserDetails = await User.findByIdAndUpdate(userId, { password: hashPassword }, { new: true })
+        console.log('check 5')
+        try {
+            const updatePasswordEmail = await sendMail(updateUserDetails.email, 'Password  for your account has been updated', passwordUpdated(updateUserDetails.email, `password  udpate successfully for ${updateUserDetails.name}`));
+            console.log(updatePasswordEmail)
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+
+            })
+        }
+
+        return res
+            .status(200)
+            .json({ success: true, message: "Password updated successfully" });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+
+        })
+    }
+}

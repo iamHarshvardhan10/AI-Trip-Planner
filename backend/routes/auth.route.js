@@ -1,4 +1,5 @@
-import { login, register, sentOtp } from '../controllers/auth.controllers.js';
+import { verifyUser } from '../middleware/verifyUser.js';
+import { changePassword, login, register, sentOtp } from '../controllers/auth.controllers.js';
 import express from 'express';
 
 const router = express.Router();
@@ -14,6 +15,7 @@ router.post('/login', login)
 router.post('/sendOTP', sentOtp)
 
 // Route for change Password
+router.post('/changepassword', verifyUser, changePassword)
 
 // Route for reset Password token
 

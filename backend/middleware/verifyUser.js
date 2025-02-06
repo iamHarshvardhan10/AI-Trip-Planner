@@ -2,9 +2,10 @@
 import jwt from 'jsonwebtoken';
 
 
-export const verifyUser = async (req, res) => {
+export const verifyUser = async (req, res , next) => {
     try {
-        const token = req.cookies.token || req.body.token || req.header('Authorization')?.replace("Bearer ", "");
+
+        const token = req.cookies?.token || req.body?.token || req.header('Authorization')?.replace("Bearer ", "");
 
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" });
@@ -20,6 +21,7 @@ export const verifyUser = async (req, res) => {
                 error: error.message
             })
         }
+        next();
     } catch (error) {
         return res.status(500).json({
             message: 'Error verifying user',
