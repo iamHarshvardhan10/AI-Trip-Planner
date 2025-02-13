@@ -1,6 +1,7 @@
 // import About from "../Tour/About";
 import Counter from "../Tour/Counter";
 import FutureTour from "../Tour/FutureTour";
+import Share from "../Tour/Share";
 import Tour from "../Tour/Tour";
 
 const Home = () => {
@@ -10,6 +11,7 @@ const Home = () => {
       {/* <About /> */}
       <Counter />
       <FutureTour />
+      <Share />
     </div>
   );
 };

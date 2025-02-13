@@ -73,3 +73,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 10s linear infinite;
+}
+
+.backgroundImageRegister {
+  height: 100vh;
+  background: url("/back2.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.backgroundImageLogin {
+  height: 100vh;
+  background: url("/back3.jpg");
+  background-size: cover;
+  background-position: center;
+}
