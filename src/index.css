@@ -88,8 +88,9 @@
 }
 
 .backgroundImageRegister {
-  height: 100vh;
+  height: auto;
   background: url("/back2.jpg");
+  /* background: url("/vd1.mp4"); */
   background-size: cover;
   background-position: center;
 }

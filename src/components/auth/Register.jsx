@@ -4,16 +4,60 @@ import { Label } from "../ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    imageUrl: "",
+  });
+
+  console.log(formData);
+  const [file, setFile] = useState(null);
+  console.log(file);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+    }
+
+    setFormData({ ...formData, imageUrl: file });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.imageUrl
+    ) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+  };
   return (
     <div className="flex items-center justify-center px-2">
       <div className="flex flex-col md:flex-row items-center gap-10 p-6 w-full max-w-6xl">
-        <div className="w-full max-w-md p-6 bg-white-900/90 backdrop-blur-lg rounded-xl shadow-md">
+        <div className="w-full max-w-md p-6 bg-green-500/10 backdrop-blur-sm rounded-2xl shadow-4xl">
           <h2 className="text-2xl font-bold text-white text-center mb-4 uppercase">
             Register
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="name" className="text-white text-lg">
@@ -23,6 +67,8 @@ const Register = () => {
                   type="text"
                   id="name"
                   placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
               </div>
@@ -34,6 +80,8 @@ const Register = () => {
                   type="email"
                   id="email"
                   placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
               </div>
@@ -45,6 +93,21 @@ const Register = () => {
                   type="password"
                   id="password"
                   placeholder="Enter Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="ConfirmPassword" className="text-white text-lg">
+                  Confirm Password
+                </Label>
+                <Input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Enter Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
               </div>
@@ -54,7 +117,9 @@ const Register = () => {
                 </Label>
                 <Input
                   type="file"
-                  id="picture"
+                  id="imageUrl"
+                  accept="image/*"
+                  onChange={handleFileChange}
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
               </div>
@@ -70,15 +135,6 @@ const Register = () => {
                 Login
               </Link>
             </p>
-
-            {/* OR Divider */}
-            {/* <div className="flex items-center justify-center my-2">
-              <div className="w-full h-px bg-gray-400"></div>
-              <p className="px-3 text-white text-sm">OR</p>
-              <div className="w-full h-px bg-gray-400"></div>
-            </div> */}
-
-            {/* Sign in options */}
           </form>
         </div>
 
