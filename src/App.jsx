@@ -3,6 +3,7 @@ import Home from "./components/core/Home";
 import Navbar from "./components/core/Navbar";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import VerifyEmail from "./components/auth/VerifyEmail";
 const App = () => {
   const location = useLocation();
   console.log(location);
@@ -21,8 +22,11 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+
+        {/* AUTHENTICATION */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
     </div>
   );

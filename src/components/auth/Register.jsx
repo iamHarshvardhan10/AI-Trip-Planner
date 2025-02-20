@@ -3,11 +3,15 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaPhone } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
+import { useDispatch } from "react-redux";
+import { setSignUpData } from "../../redux/slices/authSlice";
+import { SEND_OTP } from "../../utils/apis";
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,7 +36,7 @@ const Register = () => {
     setFormData({ ...formData, imageUrl: file });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       !formData.name ||
@@ -48,6 +52,28 @@ const Register = () => {
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
+    }
+
+    try {
+      const response = await fetch(SEND_OTP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: formData.email }),
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (data.success == false) {
+        toast.error(data.message);
+      }
+      if (response.ok) {
+        toast.success("OTP sent successfully");
+        dispatch(setSignUpData(formData));
+        navigate("/verify-email");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
