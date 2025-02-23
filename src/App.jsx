@@ -15,6 +15,8 @@ const App = () => {
       ? "h-[100vh] backgroundImageRegister"
       : location.pathname === "/login"
       ? "h-[100vh] backgroundImageLogin"
+      : location.pathname === "/verify-email"
+      ? "h-[100vh] backgroundImageVerifyEmail"
       : "bg-white";
 
   return (

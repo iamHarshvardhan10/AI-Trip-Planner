@@ -101,3 +101,11 @@
   background-size: cover;
   background-position: center;
 }
+
+.backgroundImageVerifyEmail {
+  height: 100vh;
+  background: url("/back1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
