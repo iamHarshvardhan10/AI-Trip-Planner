@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import uploadImageToCloudinary from "../utils/uploadImageToCloudnary.js";
+// import uploadImageToCloudinary from "../utils/uploadImageToCloudnary.js";
 import OTP from "../models/OTP.model.js";
 import User from "../models/user.model.js";
 import otpGenerator from 'otp-generator';
@@ -68,10 +68,10 @@ export const sentOtp = async (req, res) => {
 export const register = async (req, res) => {
     try {
         const { name, email, password, confirmPassword, otp } = req.body;
-        const imageUrl = req.files.imageUrl;
+        // const imageUrl = req.files.imageUrl;
 
         // console.log(name, email, password, confirmPassword, otp)
-        const image = await uploadImageToCloudinary(imageUrl, 'harsh', 1000, 1000);
+        // const image = await uploadImageToCloudinary(imageUrl, 'harsh', 1000, 1000);
 
         // console.log(image)
         // console.log('check 1')
@@ -121,7 +121,7 @@ export const register = async (req, res) => {
             name,
             email,
             password: hashPassword,
-            imageUrl: image.secure_url
+            // imageUrl: image.secure_url
         })
 
         return res.status(200).json({

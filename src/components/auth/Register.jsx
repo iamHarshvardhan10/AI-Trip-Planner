@@ -17,24 +17,22 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    imageUrl: "",
   });
 
   console.log(formData);
-  const [file, setFile] = useState(null);
-  console.log(file);
+  // const [file, setFile] = useState(null);
+  // console.log(file);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFile(file);
-    }
-
-    setFormData({ ...formData, imageUrl: file });
-  };
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setFile(file);
+  //   }
+  //   setFormData({ ...formData, imageUrl: file });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,8 +40,7 @@ const Register = () => {
       !formData.name ||
       !formData.email ||
       !formData.password ||
-      !formData.confirmPassword ||
-      !formData.imageUrl
+      !formData.confirmPassword
     ) {
       toast.error("Please fill all the fields");
       return;
@@ -77,7 +74,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center px-2">
+    <div className="flex items-center justify-center px-2 h-[100vh]">
       <div className="flex flex-col md:flex-row items-center gap-10 p-6 w-full max-w-6xl">
         <div className="w-full max-w-md p-6 bg-green-500/10 backdrop-blur-sm rounded-2xl shadow-4xl">
           <h2 className="text-2xl font-bold text-white text-center mb-4 uppercase">
@@ -137,7 +134,7 @@ const Register = () => {
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
               </div>
-              <div className="grid gap-2">
+              {/* <div className="grid gap-2">
                 <Label htmlFor="picture" className="text-white text-lg">
                   Picture
                 </Label>
@@ -148,7 +145,7 @@ const Register = () => {
                   onChange={handleFileChange}
                   className="h-10 w-full border border-white/30 text-white placeholder-white/60 rounded-md px-4 bg-transparent"
                 />
-              </div>
+              </div> */}
             </div>
             <Button className="w-full h-10 bg-black hover:bg-white hover:text-black text-white font-semibold rounded-lg py-3 transition">
               Submit
