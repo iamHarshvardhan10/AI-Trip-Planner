@@ -3,9 +3,51 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaPhone } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { LOGIN } from "../../utils/apis";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/slices/authSlice";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(LOGIN, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      console.log(data);
+      if (data.succees == false) {
+        toast.error(data.message);
+      }
+      if (response.ok) {
+        toast.success(data.message);
+        dispatch(setToken(data.token));
+        navigate("/");
+      }
+    } catch (error) {
+      // console.log(error)
+      toast.error(error.message);
+    }
+  };
   return (
     <div className="flex items-center justify-center mt-10 px-2">
       <div className="flex flex-col md:flex-row items-center gap-10 p-6 w-full max-w-6xl">
@@ -13,7 +55,7 @@ const Login = () => {
           <h2 className="text-2xl font-bold text-white text-center mb-4 uppercase">
             Login
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="email" className="text-white text-lg">
@@ -22,6 +64,8 @@ const Login = () => {
                 <Input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Email"
                   className="h-10 w-full border border-black/30 text-white placeholder-white/60 rounded-md px-4"
                 />
@@ -33,6 +77,8 @@ const Login = () => {
                 <Input
                   type="password"
                   id="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="Enter Password"
                   className="h-10 w-full border border-black/30 text-white placeholder-white/60 rounded-md px-4"
                 />
