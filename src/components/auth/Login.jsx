@@ -33,14 +33,15 @@ const Login = () => {
         credentials: "include",
       });
       const data = await response.json();
-      localStorage.setItem("token", data.token);
       console.log(data);
-      if (data.succees == false) {
+      if (data.success == false) {
         toast.error(data.message);
+        return;
       }
       if (response.ok) {
         toast.success(data.message);
         dispatch(setToken(data.token));
+        localStorage.setItem("token", data.token);
         navigate("/");
       }
     } catch (error) {
