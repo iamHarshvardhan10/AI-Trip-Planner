@@ -1,9 +1,12 @@
-import { Menu } from "lucide-react";
+// import { Menu } from "lucide-react";
 import logo from "../../assets/asset 0.svg";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const { token } = useSelector((state) => state.auth);
+
   return (
     <>
       <div className="flex items-start justify-between lg:flex lg:items-start lg:justify-between pr-10 pl-10 pt-5 pb-2">
@@ -15,20 +18,23 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-3">
-          <Link to={"/register"}>
-            <Button className="hidden sm:block">Register</Button>
-          </Link>
-          <Link to={"/login"}>
-            <Button variant="secondary" className="hidden sm:block">
-              Login
-            </Button>
-          </Link>
-          <Button
-            variant="primary"
-            className="border-2 border-black hover:border-none hover:bg-gray-400 "
-          >
-            <Menu />
-          </Button>
+          {token === null && (
+            <Link to={"/register"}>
+              <Button className="hidden sm:block">Register</Button>
+            </Link>
+          )}
+          {token === null && (
+            <Link to={"/login"}>
+              <Button variant="secondary" className="hidden sm:block">
+                Login
+              </Button>
+            </Link>
+          )}
+          {token !== null && (
+            <Link to={"/dashboard/my-profile"}>
+              <Button>DashBoard</Button>
+            </Link>
+          )}
         </div>
       </div>
     </>

@@ -42,7 +42,7 @@ const Login = () => {
         toast.success(data.message);
         dispatch(setToken(data.token));
         localStorage.setItem("token", data.token);
-        navigate("/");
+        navigate("/dashboard/my-profile");
       }
     } catch (error) {
       // console.log(error)

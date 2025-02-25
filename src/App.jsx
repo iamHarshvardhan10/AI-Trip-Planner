@@ -4,6 +4,10 @@ import Navbar from "./components/core/Navbar";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import VerifyEmail from "./components/auth/VerifyEmail";
+import MyProfile from "./components/core/Dashboard/MyProfile";
+import Dashboard from "./components/core/Dashboard";
+import Chats from "./components/core/Dashboard/Chats";
+import MyFriends from "./components/core/Dashboard/MyFriends";
 const App = () => {
   const location = useLocation();
   console.log(location);
@@ -29,6 +33,13 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
+
+        {/* DASHBOARD */}
+        <Route element={<Dashboard />}>
+          <Route path="/dashboard/my-profile" element={<MyProfile />} />
+          <Route path="/dashboard/chats" element={<Chats />} />
+          <Route path="/dashboard/my-friends" element={<MyFriends />} />
+        </Route>
       </Routes>
     </div>
   );
