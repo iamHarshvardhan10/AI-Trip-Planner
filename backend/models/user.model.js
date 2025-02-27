@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
         require: true
     },
     imageUrl: {
-        type: String
+        type: String,
+        default: `https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png`
     },
     role: {
         type: String,

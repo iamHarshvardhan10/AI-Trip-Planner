@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { LOGIN } from "../../utils/apis";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/slices/authSlice";
+import { setUser } from "../../redux/slices/profileSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ const Login = () => {
       });
       const data = await response.json();
       console.log(data);
+      dispatch(setUser(data?.user));
+      console.log("Login", response);
       if (data.success == false) {
         toast.error(data.message);
         return;
