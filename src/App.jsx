@@ -21,7 +21,7 @@ const App = () => {
       ? "h-[100vh] backgroundImageLogin"
       : location.pathname === "/verify-email"
       ? "h-[100vh] backgroundImageVerifyEmail"
-      : "bg-white";
+      : "bg-[#000814]";
 
   return (
     <div className={`${bg} w-full h-auto`}>
