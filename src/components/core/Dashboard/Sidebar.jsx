@@ -2,7 +2,8 @@ import { matchPath, NavLink } from "react-router-dom";
 import { siderbarlinks } from "../../../utils/dashboard-sidelinks";
 import { useSelector } from "react-redux";
 // import * as Icons from "react-icons/vsc";
-
+import { CiSettings } from "react-icons/ci";
+import { Button } from "../../../components/ui/button";
 const Sidebar = () => {
   const { user } = useSelector((state) => state.profile);
   const matchRoute = (route) => {
@@ -41,8 +42,30 @@ const Sidebar = () => {
           );
         })}
       </div>
-      <div className="mx-auto mt-6 mb-6 h-[1px] w-full bg-white" />
-      
+      <div className="mx-auto mt-2 mb-4 h-[1px] w-full bg-white" />
+      <div
+        className={`relative px-8 py-4 text-lg font-sm ${
+          matchRoute("/dashboard/settings")
+            ? "bg-green-800 text-green-400"
+            : "bg-opacity-0 text-gray-400"
+        } transition-all duration-200`}
+      >
+        <NavLink to={"/dashboard/settings"}>
+          <span
+            className={`absolute left-0 top-0 h-full w-[0.15rem] bg-yellow-50 ${
+              matchRoute("/dashboard/settings") ? "opacity-100" : "opacity-0"
+            }`}
+          ></span>
+          <div className="flex items-center gap-x-2">
+            <CiSettings />
+            Settings
+          </div>
+        </NavLink>
+
+        <Button variant={"secondary"} className="mt-10 w-full">
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };
