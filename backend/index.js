@@ -12,6 +12,7 @@ dotenv.config();
 // ROUTES PATH
 import authRoutes from './routes/auth.route.js'
 import tripRoutes from './routes/trip.route.js'
+import profileRoutes from './routes/profile.route.js'
 const app = express();
 
 const PORT = process.env.PORT;
@@ -46,6 +47,7 @@ cloudinaryConnect();
 // AUTH ROUTES
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/trip', tripRoutes)
+app.use('/api/v1/profile', profileRoutes)
 
 app.get('/', (req, res) => {
     res.json({
