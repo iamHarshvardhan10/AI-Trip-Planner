@@ -8,6 +8,8 @@ import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./components/core/Dashboard";
 import Chats from "./components/core/Dashboard/Chats";
 import MyFriends from "./components/core/Dashboard/MyFriends";
+import Groups from "./components/core/Dashboard/Groups";
+import Settings from "./components/core/Dashboard/Settings";
 const App = () => {
   const location = useLocation();
   console.log(location);
@@ -37,8 +39,10 @@ const App = () => {
         {/* DASHBOARD */}
         <Route element={<Dashboard />}>
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
-          <Route path="/dashboard/chats" element={<Chats />} />
-          <Route path="/dashboard/my-friends" element={<MyFriends />} />
+          <Route path="/dashboard/chat" element={<Chats />} />
+          <Route path="/dashboard/connect" element={<MyFriends />} />
+          <Route path="/dashboard/community" element={<Groups />} />
+          <Route path="/dashboard/settings" element={<Settings />} />
         </Route>
       </Routes>
     </div>

@@ -61,11 +61,10 @@ const Sidebar = () => {
             Settings
           </div>
         </NavLink>
-
-        <Button variant={"secondary"} className="mt-10 w-full">
-          Logout
-        </Button>
       </div>
+      <Button variant={"secondary"} className="mt-6">
+        Logout
+      </Button>
     </div>
   );
 };
