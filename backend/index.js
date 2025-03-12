@@ -16,6 +16,12 @@ import profileRoutes from './routes/profile.route.js'
 const app = express();
 
 const PORT = process.env.PORT;
+// EXPRESS - FILE UPLOAD
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
+}))
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,20 +29,14 @@ app.use(cookieParser());
 
 app.use(cors({
     origin: 'http://localhost:5173',
-    methods: ["GET", "POST", "PATCH", "DELETE"],
+    methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true
-}))
+}))    
 
 app.options("*", cors());
 
 
 
-
-// EXPRESS - FILE UPLOAD
-app.use(fileUpload({
-    useTempFiles: true,
-    tempFileDir: '/tmp/',
-}))
 
 
 
