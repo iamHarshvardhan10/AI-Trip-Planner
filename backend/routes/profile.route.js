@@ -1,5 +1,5 @@
 import { updatePicture } from '../controllers/profile.controllers.js';
-import { verifyUser } from '../middleware/verifyUser';
+import { verifyUser } from '../middleware/verifyUser.js';
 import express from 'express';
 
 const router = express.Router();

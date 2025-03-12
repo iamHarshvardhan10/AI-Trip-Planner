@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import User from "../models/user.model";
-import uploadImageToCloudinary from "../utils/uploadImageToCloudnary";
+import User from "../models/user.model.js";
+import uploadImageToCloudinary from "../utils/uploadImageToCloudnary.js";
 
 
 export const updatePicture = async (req, res) => {
