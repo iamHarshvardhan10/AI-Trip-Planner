@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import profileImg from "../../../assets/asset 19.jpeg";
 import { Link, NavLink } from "react-router-dom";
 import { FaPenToSquare } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadImageModal from "../../../components/common/UploadImageModal";
 import toast from "react-hot-toast";
 import { UPDATEPICTURE } from "../../../utils/apis";
+import { setImageUpdate } from "../../../redux/slices/profileSlice";
 
 const MyProfile = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.profile);
   const [confirmationModal, setConfirmationModal] = useState(null);
   const [displayPicture, setDisplayPicture] = useState(null);
@@ -20,47 +22,53 @@ const MyProfile = () => {
       btn2Handler: () => uploadImage(),
     });
   };
-  console.log(displayPicture);
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (file && file instanceof File) {
       setDisplayPicture(file);
+    } else {
+      console.error("Invalid file selected!");
     }
   };
 
   const uploadImage = async () => {
+    if (displayPicture == null) {
+      console.error("No file selected!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("displayPicture", displayPicture);
 
-    // // Debugging the FormData
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + ":", pair[1]);
-    // }
+    // Debugging FormData
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ": ", pair[1]);
+    }
 
     try {
-      console.log("First Check");
       const res = await fetch(UPDATEPICTURE, {
         method: "PUT",
         body: formData,
         credentials: "include",
       });
-      console.log(" second Check");
 
       const data = await res.json();
-      console.log(data);
-      if (data.success == false) {
-        toast.error(data.message);
-      }
-      console.log(res);
+      // console.log("Upload Response:", data);
       if (res.ok) {
-        toast.success("Profile Picture Updated Successfully");
+        toast.success("Image Upload Successfully");
         setConfirmationModal(null);
-      
+        dispatch(setImageUpdate(data.data.imageUrl));
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (displayPicture instanceof File) {
+      uploadImage();
+    }
+  }, [displayPicture]);
 
   const friendsNumber = 500;
   return (

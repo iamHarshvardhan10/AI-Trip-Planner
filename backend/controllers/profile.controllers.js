@@ -5,25 +5,9 @@ import uploadImageToCloudinary from "../utils/uploadImageToCloudnary.js";
 
 export const updatePicture = async (req, res) => {
     try {
-
-        console.log("Files Received:", req.files); // Debugging step
-        console.log("Request Body:", req.body);
-
-        
-        if (!req.files || !req.files.displayPicture) {
-            return res.status(400).json({
-                success: false,
-                message: "No file uploaded",
-            });
-        }
-
         const displayPicture = req.files.displayPicture;
         const userId = req.user.id;
 
-        console.log("Uploaded file:", displayPicture);
-
-
-        console.log("it req fiel ", req.files)
         const image = await uploadImageToCloudinary(
             displayPicture,
             process.env.FOLDER_NAME,

@@ -17,6 +17,9 @@ export const profileSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload
         },
+        setImageUpdate: (state, action) => {
+            state.user.imageUrl = action.payload
+        },
         setLoading: (state, action) => {
             state.loading = action.payload
         },
@@ -26,5 +29,5 @@ export const profileSlice = createSlice({
     }
 })
 
-export const { setUser, setLoading, setError } = profileSlice.actions;
+export const { setUser, setLoading, setError , setImageUpdate } = profileSlice.actions;
 export default profileSlice.reducer;
