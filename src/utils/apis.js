@@ -7,3 +7,5 @@ export const REGISTER = `${API_POINT}/api/v1/auth/register`
 export const LOGIN = `${API_POINT}/api/v1/auth/login`
 
 export const UPDATEPICTURE = `${API_POINT}/api/v1/profile/updateDisplayPicture`
+
+export const GETALLCONNECTION = `${API_POINT}/api/v1/connection/getConnection`
