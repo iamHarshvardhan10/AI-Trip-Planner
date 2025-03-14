@@ -13,6 +13,7 @@ dotenv.config();
 import authRoutes from './routes/auth.route.js'
 import tripRoutes from './routes/trip.route.js'
 import profileRoutes from './routes/profile.route.js'
+import connectionRoutes from './routes/friend.route.js'
 const app = express();
 
 const PORT = process.env.PORT;
@@ -31,7 +32,7 @@ app.use(cors({
     origin: 'http://localhost:5173',
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     credentials: true
-}))    
+}))
 
 app.options("*", cors());
 
@@ -48,6 +49,7 @@ cloudinaryConnect();
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/trip', tripRoutes)
 app.use('/api/v1/profile', profileRoutes)
+app.use('/api/v1/connection', connectionRoutes)
 
 app.get('/', (req, res) => {
     res.json({

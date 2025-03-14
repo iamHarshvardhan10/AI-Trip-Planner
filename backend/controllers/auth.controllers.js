@@ -121,7 +121,7 @@ export const register = async (req, res) => {
             name,
             email,
             password: hashPassword,
-            imageUrl
+            // imageUrl
         })
 
         return res.status(200).json({
